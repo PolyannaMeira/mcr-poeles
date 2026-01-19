@@ -58,7 +58,7 @@ const HeroSection = () => {
 
             {/* Badges de réassurance */}
             <div className="flex flex-wrap gap-3 md:gap-4 mb-8">
-              {badges.map((badge, index) => (
+              {badges.map((badge) => (
                 <div
                   key={badge.text}
                   className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 md:px-4 py-2 rounded-lg border border-white/20"

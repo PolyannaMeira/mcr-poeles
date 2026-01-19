@@ -1,5 +1,5 @@
 import { MapPin, Users, Heart, Award } from "lucide-react";
-import equipeExperts from "../assets/equipe-experts.jpg";
+
 
 const AboutSection = () => {
   const stats = [
