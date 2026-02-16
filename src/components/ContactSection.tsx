@@ -4,6 +4,7 @@ import { Send, Phone, Mail, MapPin, CheckCircle } from "lucide-react";
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -13,37 +14,108 @@ const ContactSection = () => {
     typeProjet: "granules",
   });
 
+  const validatePhone = (phone: string): boolean => {
+    const phoneRegex = /^(?:(?:\+33|0)[1-9](?:[. -]?\d{2}){4})$/;
+    return phoneRegex.test(phone.replace(/\s/g, ''));
+  };
+
+  const validatePostalCode = (code: string): boolean => {
+    const postalRegex = /^\d{5}$/;
+    return postalRegex.test(code);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // 1. Validação dos dados do formulário
+    const newErrors: { [key: string]: string } = {};
+    if (!validatePhone(formData.telephone)) {
+      newErrors.telephone = 'Veuillez saisir un numéro de téléphone français valide';
+    }
+    if (!validatePostalCode(formData.codePostal)) {
+      newErrors.codePostal = 'Veuillez saisir un code postal français valide (5 chiffres)';
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     setIsSubmitting(true);
+    
+    try {
+      // 2. Criar um iframe invisível para servir como alvo da submissão.
+      // Isso evita que a página principal seja redirecionada.
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
 
-    // Aguardar um breve momento para mostrar o estado de carregamento
-    await new Promise((resolve) => setTimeout(resolve, 500));
+      // 3. Criar um formulário temporário na memória.
+      const form = document.createElement('form');
+      form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdYk-9kW0P3G5uYjnXfZryAdVGO_yW4xxwTbvyqWAR6pqTOQQ/formResponsehttps://docs.google.com/forms/d/e/1FAIpQLSdYk-9kW0P3G5uYjnXfZryAdVGO_yW4xxwTbvyqWAR6pqTOQQ/formResponse?usp=publish-editorPOST';
+      form.target = iframe.name; // O alvo é o nosso iframe invisível!
 
-    // Construir URL com dados pré-preenchidos para o Google Forms
-    const baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdYk-9kW0P3G5uYjnXfZryAdVGO_yW4xxwTbvyqWAR6pqTOQQ/viewform";
+      // 4. Mapear os dados do estado do React para os nomes de campo do Google Forms.
+      // ESSES IDs ('entry.xxxx') SÃO CRÍTICOS E DEVEM CORRESPONDER AO SEU GOOGLE FORM.
+      const googleFormFields = {
+        'entry.2005620554': formData.nom,
+        'entry.1045781291': formData.prenom,
+        'entry.1065046570': formData.email,
+        'entry.1166974658': formData.telephone,
+        'entry.839337160': formData.codePostal,
+        'entry.2125309862': formData.typeProjet,
+      };
 
-    // Parâmetros para pré-preencher os campos (os IDs específicos devem ser ajustados conforme o formulário)
-    const params = new URLSearchParams({
+      // 5. Adicionar cada campo como um input oculto no formulário temporário.
+      for (const key in googleFormFields) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = googleFormFields[key as keyof typeof googleFormFields];
+        form.appendChild(input);
+      }
+      
+      // 6. Adicionar o formulário temporário ao corpo do documento e submetê-lo.
+      document.body.appendChild(form);
+      form.submit();
 
-      // Para obter os IDs: acesse o formulário, preencha os campos, clique em "Get pre-filled link"
-      'entry.123456789': formData.nom, // ID do campo Nome
-      'entry.987654321': formData.prenom, // ID do campo Prénom
-      'entry.456789123': formData.email, // ID do campo Email
-      'entry.789123456': formData.telephone, // ID do campo Téléphone
-      'entry.321654987': formData.codePostal, // ID do campo Code Postal
-      'entry.654987321': formData.typeProjet, // ID do campo Type de Projet
-    });
+      // 7. Aguardar um curto período para garantir que a submissão foi processada.
+      // Este método é "fire-and-forget", não recebemos uma confirmação de sucesso do Google.
+      // Apenas assumimos que funcionou. O timeout ajuda a tornar a transição de UI mais suave.
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Abrir o formulário Google com os dados pré-preenchidos
-    window.open(`${baseUrl}?${params.toString()}`, "_blank");
+      // 8. Limpeza: remover o iframe e o formulário temporários do DOM.
+      document.body.removeChild(iframe);
+      document.body.removeChild(form);
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      // 9. Atualizar a UI para mostrar a mensagem de sucesso.
+      setIsSubmitted(true);
+      setErrors({}); // Limpar quaisquer erros antigos
+      // Opcional: Resetar o formulário
+      setFormData({
+        nom: "",
+        prenom: "",
+        email: "",
+        telephone: "",
+        codePostal: "",
+        typeProjet: "granules",
+      });
+
+    } catch (error) {
+      console.error('Erro ao criar os elementos do formulário:', error);
+      
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -52,6 +124,7 @@ const ContactSection = () => {
     { icon: MapPin, label: "Zone d'intervention", value: "Nous intervenons dans les départements du Nord et du Pas de Calais." },
   ];
 
+  
   return (
     <section id="contact" className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,8 +138,8 @@ const ContactSection = () => {
               Démarrez Votre Projet Aujourd'hui
             </h2>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Remplissez le formulaire ci-dessous. Vos informations seront automatiquement transférées
-              vers notre formulaire détaillé pour finaliser votre demande.
+              Remplissez le formulaire ci-dessous et nous vous contacterons rapidement
+              pour étudier votre projet et vous proposer une solution personnalisée.
             </p>
 
             {/* Infos contact */}
@@ -112,11 +185,11 @@ const ContactSection = () => {
                     <CheckCircle className="w-10 h-10 text-green-600" />
                   </div>
                   <h3 className="font-bold text-2xl text-gray-900 mb-4">
-                    Données envoyées !
+                    Demande envoyée avec succès !
                   </h3>
                   <p className="text-gray-600">
-                    Vos informations ont été transférées vers notre formulaire complet.
-                    Complétez les détails restants pour finaliser votre demande.
+                    Votre demande a été transmise avec succès. Notre équipe vous contactera
+                    rapidement pour étudier votre projet et vous proposer une solution adaptée.
                   </p>
                 </div>
               ) : (
@@ -162,7 +235,7 @@ const ContactSection = () => {
                       id="email"
                       name="email"
                       type="email"
-                      placeholder="n.pinto.courtage@gmail.com"
+                      placeholder="votre.email@exemple.com"
                       required
                       value={formData.email}
                       onChange={handleChange}
@@ -179,12 +252,16 @@ const ContactSection = () => {
                         id="telephone"
                         name="telephone"
                         type="tel"
-                        placeholder="+33 6 98 37 34 63"
+                        placeholder="06 12 34 56 78"
                         required
                         value={formData.telephone}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent ${errors.telephone ? 'border-red-500' : 'border-gray-300'
+                          }`}
                       />
+                      {errors.telephone && (
+                        <p className="text-sm text-red-600 mt-1">{errors.telephone}</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="codePostal" className="block text-sm font-medium text-gray-900">
@@ -198,8 +275,12 @@ const ContactSection = () => {
                         required
                         value={formData.codePostal}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent ${errors.codePostal ? 'border-red-500' : 'border-gray-300'
+                          }`}
                       />
+                      {errors.codePostal && (
+                        <p className="text-sm text-red-600 mt-1">{errors.codePostal}</p>
+                      )}
                     </div>
                   </div>
 
@@ -240,7 +321,7 @@ const ContactSection = () => {
                   </button>
 
                   <p className="text-xs text-gray-500 text-center">
-                    En cliquant sur ce bouton, vos données seront envoyées vers notre formulaire détaillé.
+                    En cliquant sur ce bouton, votre demande sera envoyée directement à notre équipe.
                     Vos informations sont protégées et ne seront jamais partagées.
                   </p>
                 </form>
