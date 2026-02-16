@@ -1,11 +1,11 @@
-import { Shield, Award, Clock, ArrowRight } from "lucide-react";
+import { Shield, Award, ArrowRight } from "lucide-react";
 import heroImage from "../assets/hero-poele.jpg";
 
 const HeroSection = () => {
   const badges = [
     { icon: Shield, text: "Éligible MaPrimeRénov'" },
     { icon: Award, text: "Installation RGE" },
-    
+
   ];
 
   const scrollToContact = () => {
@@ -47,11 +47,11 @@ const HeroSection = () => {
 
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-white leading-tight mb-6">
               Chauffez votre maison avec élégance et économie{" "}
-              
+
             </h1>
 
             <p className="text-lg md:text-xl text-gray-200 mb-8">
-              
+
               Économisez jusqu'à 60% sur vos factures énergétiques avec nos solutions de chauffage écologique.
               Expert en installation de poêles à bois et granulés dans le Nord et Pas-de-Calais.
               Devis gratuit, installation RGE.

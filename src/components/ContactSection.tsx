@@ -34,7 +34,7 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // 1. Validação dos dados do formulário
     const newErrors: { [key: string]: string } = {};
     if (!validatePhone(formData.telephone)) {
@@ -49,70 +49,53 @@ const ContactSection = () => {
     }
 
     setIsSubmitting(true);
-    
+
     try {
-      // 2. Criar um iframe invisível para servir como alvo da submissão.
-      // Isso evita que a página principal seja redirecionada.
-      const iframe = document.createElement('iframe');
-      iframe.name = 'hidden_iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-
-      // 3. Criar um formulário temporário na memória.
-      const form = document.createElement('form');
-      form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdYk-9kW0P3G5uYjnXfZryAdVGO_yW4xxwTbvyqWAR6pqTOQQ/formResponsehttps://docs.google.com/forms/d/e/1FAIpQLSdYk-9kW0P3G5uYjnXfZryAdVGO_yW4xxwTbvyqWAR6pqTOQQ/formResponse?usp=publish-editorPOST';
-      form.target = iframe.name; // O alvo é o nosso iframe invisível!
-
-      // 4. Mapear os dados do estado do React para os nomes de campo do Google Forms.
-      // ESSES IDs ('entry.xxxx') SÃO CRÍTICOS E DEVEM CORRESPONDER AO SEU GOOGLE FORM.
-      const googleFormFields = {
-        'entry.2005620554': formData.nom,
-        'entry.1045781291': formData.prenom,
-        'entry.1065046570': formData.email,
-        'entry.1166974658': formData.telephone,
-        'entry.839337160': formData.codePostal,
-        'entry.2125309862': formData.typeProjet,
-      };
-
-      // 5. Adicionar cada campo como um input oculto no formulário temporário.
-      for (const key in googleFormFields) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = googleFormFields[key as keyof typeof googleFormFields];
-        form.appendChild(input);
-      }
-      
-      // 6. Adicionar o formulário temporário ao corpo do documento e submetê-lo.
-      document.body.appendChild(form);
-      form.submit();
-
-      // 7. Aguardar um curto período para garantir que a submissão foi processada.
-      // Este método é "fire-and-forget", não recebemos uma confirmação de sucesso do Google.
-      // Apenas assumimos que funcionou. O timeout ajuda a tornar a transição de UI mais suave.
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // 8. Limpeza: remover o iframe e o formulário temporários do DOM.
-      document.body.removeChild(iframe);
-      document.body.removeChild(form);
-
-      // 9. Atualizar a UI para mostrar a mensagem de sucesso.
-      setIsSubmitted(true);
-      setErrors({}); // Limpar quaisquer erros antigos
-      // Opcional: Resetar o formulário
-      setFormData({
-        nom: "",
-        prenom: "",
-        email: "",
-        telephone: "",
-        codePostal: "",
-        typeProjet: "granules",
+      // 2. Enviar dados usando Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '7d1bc37c-6a0b-476a-b1ed-95d0000c42fd', 
+          name: `${formData.prenom} ${formData.nom}`,
+          email: formData.email,
+          phone: formData.telephone,
+          postal_code: formData.codePostal,
+          project_type: formData.typeProjet,
+          subject: 'Nouvelle demande de devis - M.C.R Chauffage',
+          message: `Nouvelle demande de devis:
+          
+Nom: ${formData.nom}
+Prénom: ${formData.prenom}
+Email: ${formData.email}
+Téléphone: ${formData.telephone}
+Code Postal: ${formData.codePostal}
+Type de projet: ${formData.typeProjet === 'granules' ? 'Poêle à Granulés' : formData.typeProjet === 'bois' ? 'Poêle à Bois' : 'Indécis'}`,
+        })
       });
 
+      if (response.ok) {
+        // 3. Sucesso - atualizar UI
+        setIsSubmitted(true);
+        setErrors({});
+        setFormData({
+          nom: "",
+          prenom: "",
+          email: "",
+          telephone: "",
+          codePostal: "",
+          typeProjet: "granules",
+        });
+      } else {
+        throw new Error('Erreur lors de l\'envoi du formulaire');
+      }
+
     } catch (error) {
-      console.error('Erro ao criar os elementos do formulário:', error);
-      
-      setIsSubmitted(true);
+      console.error('Erro ao enviar formulário:', error);
+      setErrors({ general: 'Erreur lors de l\'envoi. Veuillez réessayer ou nous appeler directement.' });
     } finally {
       setIsSubmitting(false);
     }
@@ -124,7 +107,7 @@ const ContactSection = () => {
     { icon: MapPin, label: "Zone d'intervention", value: "Nous intervenons dans les départements du Nord et du Pas de Calais." },
   ];
 
-  
+
   return (
     <section id="contact" className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -194,6 +177,12 @@ const ContactSection = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {errors.general && (
+                    <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                      <p className="text-red-700 text-sm">{errors.general}</p>
+                    </div>
+                  )}
+
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label htmlFor="nom" className="block text-sm font-medium text-gray-900">
