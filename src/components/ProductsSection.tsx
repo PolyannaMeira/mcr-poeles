@@ -5,6 +5,7 @@ import poeleGranulesEntity from "../assets/entity90.jpg";
 import poeleGranulesCell80 from "../assets/cell80.jpg";
 import poeleGranulesGotha70 from "../assets/gotha70.jpg";
 import serviceEntretien from "../assets/service-entretien.jpg";
+import poeleBoisBackBox from "../assets/Poêle_a_bois.png";
 
 const ProductsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -21,22 +22,22 @@ const ProductsSection = () => {
         { icon: ThermometerSun, text: "Programmation journalière/hebdomadaire" },
         { icon: Sparkles, text: "Design céramique premium" },
       ],
-      
+
       badge: "Best-seller",
       badgeColor: "bg-orange-500",
     },
     {
       id: 2,
-      type: "Poêle à Granulés", 
+      type: "Poêle à Granulés",
       model: "CELL80+",
       image: poeleGranulesEntity,
-description: "Poêle à granulés étanche canalisable « gain de place » avec seulement 30,5 cm de profondeur, au design linéaire, idéal pour le couloir mais adapté à tous les espaces de la maison. Avec porte en fonte et côtés en acier.",
+      description: "Poêle à granulés étanche canalisable « gain de place » avec seulement 30,5 cm de profondeur, au design linéaire, idéal pour le couloir mais adapté à tous les espaces de la maison. Avec porte en fonte et côtés en acier.",
       features: [
         { icon: Flame, text: "Foyer en vermiculite" },
         { icon: TreePine, text: "Bougie en céramique" },
         { icon: Sparkles, text: "Four en inox intégré" },
       ],
-      
+
       badge: "Tradition",
       badgeColor: "bg-amber-600",
     },
@@ -44,14 +45,14 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
       id: 3,
       type: "Poêle à Granulés",
       model: "HYBRID PRO",
-      image: poeleGranulesCell80, 
+      image: poeleGranulesCell80,
       description: "Poêle à granulés étanche canalisable « gain de place » avec seulement 30,5 cm de profondeur, au design linéaire, idéal pour le couloir mais adapté à tous les espaces de la maison. Avec porte en fonte et côtés en acier.",
       features: [
         { icon: Flame, text: "Ventilation air chaud vers le front" },
         { icon: Wifi, text: "Système E-Smart avec Wi-Fi intégré" },
         { icon: Sparkles, text: "Fonction Easy Timer / Relax" },
       ],
-      
+
       badge: "Innovation",
       badgeColor: "bg-blue-600",
     },
@@ -59,32 +60,32 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
       id: 4,
       type: "Poêle à Granulés",
       model: "GOTHA 70",
-      image: poeleGranulesGotha70, 
+      image: poeleGranulesGotha70,
       description: "Poêle à granulés étanche « gain de place » avec seulement 30 cm de profondeur, idéal pour le couloir, mais adapté à tous les espaces de la maison, avec porte et inserts frontaux en acier.",
       features: [
         { icon: Flame, text: "Ventilation air chaud vers le front" },
         { icon: Wifi, text: "Système E-Smart avec Wi-Fi intégré" },
         { icon: Sparkles, text: "Panneau synoptique sur le top" },
       ],
-      
+
       badge: "Innovation",
       badgeColor: "bg-blue-600",
-    },
-    {
+    }, {
       id: 5,
-      type: "Poêle à Granulés",
-      model: "HYBRID PRO",
-      image: poeleGranulesCell80, 
-      description: "Poêle à granulés étanche canalisable « gain de place » avec seulement 30,5 cm de profondeur, au design linéaire, idéal pour le couloir mais adapté à tous les espaces de la maison. Avec porte en fonte et côtés en acier.",
+      type: "Poêle à Bois",
+      model: "Back Box Slim Eco PV",
+      image: poeleBoisBackBox,
+      description: "Poêle à bois haute performance avec un rendement exceptionnel de 83% et une puissance de 10,8 kW, capable de chauffer jusqu'à 245 m³. Consommation optimisée de seulement 3,1 kg de bois par heure pour un chauffage économique et écologique.",
       features: [
-        { icon: Flame, text: "Ventilation air chaud vers le front" },
-        { icon: Wifi, text: "Système E-Smart avec Wi-Fi intégré" },
-        { icon: Sparkles, text: "Fonction Easy Timer / Relax" },
+        { icon: TreePine, text: "Rendement exceptionnel de 83%" },
+        { icon: ThermometerSun, text: "Puissance 10,8 kW - Chauffe 245 m³" },
+        { icon: Flame, text: "Consommation optimisée 3,1 kg/h" },
       ],
-      
+
       badge: "Innovation",
       badgeColor: "bg-blue-600",
     },
+
     {
       id: 6,
       type: "Entretien & SAV",
@@ -96,13 +97,13 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
         { icon: ThermometerSun, text: "Intervention rapide" },
         { icon: Sparkles, text: "Pièces d'origine" },
       ],
-      
+
       badge: "Sérénité",
       badgeColor: "bg-green-600",
     },
-    
-    
-    
+
+
+
   ];
 
   const scrollToContact = () => {
@@ -144,12 +145,12 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          
+
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Nos Produits d'Excellence
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Découvrez notre sélection de poêles haute performance, alliant design contemporain 
+            Découvrez notre sélection de poêles haute performance, alliant design contemporain
             et technologie de pointe pour un chauffage optimal.
           </p>
         </div>
@@ -175,7 +176,7 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
 
           {/* Carousel */}
           <div className="overflow-hidden">
-            <div 
+            <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{
                 transform: `translateX(-${currentSlide * (100 / visibleSlides)}%)`
@@ -188,14 +189,14 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
                     <div className="relative h-56 overflow-hidden">
                       <img
                         src={product.image}
-                        alt={`${product.type} ${product.model}`}
+                        alt={`${product.type} ${product.model} M.C.R Chauffage - Installation Nord Pas-de-Calais`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           e.currentTarget.src = `https://images.unsplash.com/photo-1574263867128-c397a8d1b5e3?w=400&h=300&fit=crop`;
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent" />
-                      
+
                       {/* Badge */}
                       <span className={`absolute top-4 left-4 ${product.badgeColor} text-white px-3 py-1 rounded-full text-xs font-semibold`}>
                         {product.badge}
@@ -226,7 +227,7 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
                         ))}
                       </div>
 
-                      
+
 
                       {/* CTA */}
                       <button
@@ -249,9 +250,8 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
               <button
                 key={i}
                 onClick={() => goToSlide(i)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  currentSlide === i ? 'bg-orange-600' : 'bg-gray-300 hover:bg-gray-400'
-                }`}
+                className={`w-3 h-3 rounded-full transition-all ${currentSlide === i ? 'bg-orange-600' : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
               />
             ))}
           </div>
@@ -260,7 +260,7 @@ description: "Poêle à granulés étanche canalisable « gain de place » avec 
         {/* CTA Final */}
         <div className="text-center mt-16">
           <p className="text-gray-600 mb-6 text-lg">
-            Vous ne savez pas quel modèle choisir ?
+            Découvrez tous nos modèles :
           </p>
           <button
             type="button"

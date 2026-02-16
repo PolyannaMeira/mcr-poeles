@@ -21,16 +21,34 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulation d'envoi (à remplacer par l'URL Google Forms ou API)
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Aguardar um breve momento para mostrar o estado de carregamento
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // Construir URL com dados pré-preenchidos para o Google Forms
+    const baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdYk-9kW0P3G5uYjnXfZryAdVGO_yW4xxwTbvyqWAR6pqTOQQ/viewform";
+
+    // Parâmetros para pré-preencher os campos (os IDs específicos devem ser ajustados conforme o formulário)
+    const params = new URLSearchParams({
+
+      // Para obter os IDs: acesse o formulário, preencha os campos, clique em "Get pre-filled link"
+      'entry.123456789': formData.nom, // ID do campo Nome
+      'entry.987654321': formData.prenom, // ID do campo Prénom
+      'entry.456789123': formData.email, // ID do campo Email
+      'entry.789123456': formData.telephone, // ID do campo Téléphone
+      'entry.321654987': formData.codePostal, // ID do campo Code Postal
+      'entry.654987321': formData.typeProjet, // ID do campo Type de Projet
+    });
+
+    // Abrir o formulário Google com os dados pré-preenchidos
+    window.open(`${baseUrl}?${params.toString()}`, "_blank");
 
     setIsSubmitting(false);
     setIsSubmitted(true);
   };
 
   const contactInfo = [
-    { icon: Phone, label: "Téléphone", value: "01 23 45 67 89" },
-    { icon: Mail, label: "Email", value: "contact@ek36-chauffage.fr" },
+    { icon: Phone, label: "Téléphone", value: "+33 6 98 37 34 63" },
+    { icon: Mail, label: "Email", value: "n.pinto.courtage@gmail.com" },
     { icon: MapPin, label: "Zone d'intervention", value: "Nous intervenons dans les départements du Nord et du Pas de Calais." },
   ];
 
@@ -47,8 +65,8 @@ const ContactSection = () => {
               Démarrez Votre Projet Aujourd'hui
             </h2>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Remplissez le formulaire pour recevoir une étude personnalisée gratuite. 
-              Notre équipe vous recontacte sous 24h pour discuter de votre projet.
+              Remplissez le formulaire ci-dessous. Vos informations seront automatiquement transférées
+              vers notre formulaire détaillé pour finaliser votre demande.
             </p>
 
             {/* Infos contact */}
@@ -94,10 +112,11 @@ const ContactSection = () => {
                     <CheckCircle className="w-10 h-10 text-green-600" />
                   </div>
                   <h3 className="font-bold text-2xl text-gray-900 mb-4">
-                    Merci pour votre demande !
+                    Données envoyées !
                   </h3>
                   <p className="text-gray-600">
-                    Un conseiller vous recontactera dans les 24 heures.
+                    Vos informations ont été transférées vers notre formulaire complet.
+                    Complétez les détails restants pour finaliser votre demande.
                   </p>
                 </div>
               ) : (
@@ -143,7 +162,7 @@ const ContactSection = () => {
                       id="email"
                       name="email"
                       type="email"
-                      placeholder="votre@email.fr"
+                      placeholder="n.pinto.courtage@gmail.com"
                       required
                       value={formData.email}
                       onChange={handleChange}
@@ -160,7 +179,7 @@ const ContactSection = () => {
                         id="telephone"
                         name="telephone"
                         type="tel"
-                        placeholder="06 12 34 56 78"
+                        placeholder="+33 6 98 37 34 63"
                         required
                         value={formData.telephone}
                         onChange={handleChange}
@@ -215,14 +234,14 @@ const ContactSection = () => {
                     ) : (
                       <span className="flex items-center justify-center gap-2">
                         <Send className="w-5 h-5" />
-                        Envoyer ma demande
+                        Envoyer mes informations
                       </span>
                     )}
                   </button>
 
                   <p className="text-xs text-gray-500 text-center">
-                    En soumettant ce formulaire, vous acceptez d'être recontacté par notre équipe. 
-                    Vos données sont protégées et ne seront jamais partagées.
+                    En cliquant sur ce bouton, vos données seront envoyées vers notre formulaire détaillé.
+                    Vos informations sont protégées et ne seront jamais partagées.
                   </p>
                 </form>
               )}

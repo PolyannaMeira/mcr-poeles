@@ -5,7 +5,7 @@ const BenefitsSection = () => {
     {
       icon: PiggyBank,
       title: "Économies Substantielles",
-      description: "Réduisez vos factures d'énergie jusqu'à 60% grâce à la haute performance des modèles EDILKAMIN.",
+      description: "Réduisez vos factures d'énergie jusqu'à 60% grâce à la haute performance de nos modèles",
       stat: "60%",
       statLabel: "d'économies",
     },
@@ -41,10 +41,10 @@ const BenefitsSection = () => {
             Pourquoi nous choisir
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Des Avantages Concrets
+            Avantages Installation 
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Faites le choix d'un chauffage performant, économique et respectueux de l'environnement 
+            Faites le choix d'un chauffage performant, économique et respectueux de l'environnement
             avec un accompagnement professionnel de A à Z.
           </p>
         </div>
@@ -84,7 +84,7 @@ const BenefitsSection = () => {
             🔥 Éligible aux aides de l'État
           </h3>
           <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 opacity-95">
-            Bénéficiez de MaPrimeRénov' et des Certificats d'Économies d'Énergie (CEE) 
+            Bénéficiez de MaPrimeRénov' et des Certificats d'Économies d'Énergie (CEE)
             pour financer votre projet de chauffage écologique.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

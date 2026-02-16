@@ -5,7 +5,7 @@ const HeroSection = () => {
   const badges = [
     { icon: Shield, text: "Éligible MaPrimeRénov'" },
     { icon: Award, text: "Installation RGE" },
-    { icon: Clock, text: "Garantie 10 ans" },
+    
   ];
 
   const scrollToContact = () => {
@@ -28,7 +28,7 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="Famille profitant de la chaleur d'un poêle EK36"
+          alt="Installation poêle à bois M.C.R Chauffage Nord Pas-de-Calais - Chauffage économique et écologique"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/70 to-gray-900/40" />
@@ -46,14 +46,15 @@ const HeroSection = () => {
             </div>
 
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-white leading-tight mb-6">
-              Chauffez votre maison avec{" "}
-              <span className="text-orange-400">élégance</span> et{" "}
-              <span className="text-orange-400">économie</span>
+              Chauffez votre maison avec élégance et économie{" "}
+              
             </h1>
 
             <p className="text-lg md:text-xl text-gray-200 mb-8">
-              Installation experte de poêles à bois et à granulés. Profitez d'un 
-              confort thermique optimal tout en réduisant vos factures d'énergie.
+              
+              Économisez jusqu'à 60% sur vos factures énergétiques avec nos solutions de chauffage écologique.
+              Expert en installation de poêles à bois et granulés dans le Nord et Pas-de-Calais.
+              Devis gratuit, installation RGE.
             </p>
 
             {/* Badges de réassurance */}

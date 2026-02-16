@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Menu, X, Flame } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import logoPhilippe from '../assets/Logo - Philippe.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,17 +24,17 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
+          
           <a href="#" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center shadow-lg">
-              <Flame className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-r flex items-center justify-center shadow-lg overflow-hidden">
+              <img src={logoPhilippe} alt="Logo Philippe" className="w-full h-full object-contain" />
             </div>
             <span className="font-bold text-xl text-gray-900">
               <span className="text-noir">M.C.R</span>
             </span>
           </a>
 
-          {/* Navigation Desktop */}
+          
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <button
@@ -47,7 +48,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button Desktop */}
+          
           <div className="hidden md:block">
             <button
               type="button"
@@ -58,7 +59,7 @@ const Header = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          
           <button
             type="button"
             onClick={() => setIsMenuOpen(!isMenuOpen)}

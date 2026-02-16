@@ -1,4 +1,5 @@
 import { MapPin, Users, Heart, Award } from "lucide-react";
+import equipeImage from "../assets/Equipe.png";
 
 
 const AboutSection = () => {
@@ -28,7 +29,7 @@ const AboutSection = () => {
     {
       icon: Award,
       title: "Garantie Totale",
-      description: "3 ans de garantie sur nos installations, garantie décennale.",
+      description: "3 ans de garantie constructeur pièces, main d'œuvre et déplacement. garantie décennale.",
     },
   ];
 
@@ -36,21 +37,21 @@ const AboutSection = () => {
     <section id="apropos" className="py-20 md:py-32 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image et stats */}
+
           <div className="relative">
             <div className="relative">
               <img
-                //src=
+                src={equipeImage}
                 alt="Notre équipe d'experts en installation de poêles"
                 className="rounded-2xl shadow-xl w-full h-auto object-cover"
               />
-              
-              {/* Overlay décoratif */}
+
+
               <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl -z-10" />
               <div className="absolute -top-6 -left-6 w-32 h-32 bg-orange-200/60 rounded-2xl -z-10" />
             </div>
 
-            {/* Stats overlay */}
+
             <div className="grid grid-cols-2 gap-4 mt-8">
               {stats.map((stat) => (
                 <div
@@ -66,24 +67,24 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Contenu textuel */}
+
           <div>
             <span className="inline-block text-orange-600 font-semibold text-sm uppercase tracking-wider mb-4">
               À propos de nous
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Votre Expert en Chauffage au Bois
+              Expert Chauffage Bois et Granulés - M.C.R
             </h2>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Depuis plus de 7 ans, nous accompagnons les foyers français dans leur transition 
-              vers un chauffage plus économique et écologique. Notre expertise et notre 
+              Depuis plus de 7 ans, nous accompagnons les foyers français dans leur transition
+              vers un chauffage plus économique et écologique. Notre expertise et notre
               engagement qualité font de nous le partenaire idéal pour votre projet.
             </p>
             <p className="text-gray-600 mb-8 leading-relaxed">
               Nous avons sélectionné pour vous une gamme de poêles de très haute qualité, ayant des performances énergétiques de pointe et au design élégant qui s'intègreront dans tous les intérieurs.
             </p>
 
-            {/* Valeurs */}
+
             <div className="space-y-4">
               {values.map((value) => (
                 <div

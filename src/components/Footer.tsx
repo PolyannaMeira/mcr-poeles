@@ -1,4 +1,6 @@
-import { Flame, Facebook, Instagram } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
+import logoPhilippe from '../assets/Logo - Philippe.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -15,37 +17,36 @@ const Footer = () => {
       { label: "Contact", href: "#contact" },
     ],
     legal: [
-      { label: "Mentions légales", href: "#" },
-      { label: "Politique de confidentialité", href: "#" },
-  
+      { label: "Mentions légales", href: "/mentions-legales" },
+      { label: "Politique de confidentialité", href: "/politique-confidentialite" },
+
     ],
   };
 
   const socialLinks = [
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Instagram, href: "#", label: "Instagram" },
-    
+
   ];
 
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Logo et description */}
+
           <div className="lg:col-span-1">
-            <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
-                <Flame className="w-6 h-6 text-white" />
+            <a href="#" className="flex items-center gap-2 group">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-r flex items-center justify-center shadow-lg overflow-hidden">
+                <img src={logoPhilippe} alt="Logo Philippe" className="w-full h-full object-contain" />
               </div>
               <span className="font-bold text-xl text-white">
-                M.C.R<span className="text-orange-500">.</span>
+                <span className="text-white">M.C.R</span>
               </span>
             </a>
             <p className="text-gray-300 text-sm mb-6">
-              Expert en installation de poêles à bois et à granulés depuis plus de 7 ans. 
-              Qualité, performance et service client d'exception.
-            </p>
-            {/* Réseaux sociaux */}
+              Expert M.C.R Chauffage - Installation de poêles à bois et granulés Nord Pas-de-Calais depuis plus de 7 ans.
+              Qualité RGE, performance énergétique et service client d'exception. </p>
+
             <div className="flex gap-3">
               {socialLinks.map((social) => (
                 <a
@@ -60,7 +61,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Produits */}
+
           <div>
             <h3 className="font-semibold text-white mb-4">
               Nos Produits
@@ -79,7 +80,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Entreprise */}
           <div>
             <h3 className="font-semibold text-white mb-4">
               Entreprise
@@ -98,7 +98,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Informations légales */}
+
           <div>
             <h3 className="font-semibold text-white mb-4">
               Informations
@@ -106,32 +106,26 @@ const Footer = () => {
             <ul className="space-y-3">
               {links.legal.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-gray-300 hover:text-orange-500 transition-colors text-sm"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Séparateur */}
+
         <div className="border-t border-gray-700 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Chauffage. Tous droits réservés.
+              © {currentYear} M.C.R. @Tous droits réservés.
             </p>
-            <div className="flex items-center gap-4">
-              <span className="text-gray-400 text-sm">
-                Installateur certifié
-              </span>
-              <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                RGE
-              </span>
-            </div>
+
+
           </div>
         </div>
       </div>
