@@ -1,5 +1,5 @@
 import { Shield, Award, ArrowRight } from "lucide-react";
-import heroImage from "../assets/hero-poele.jpg";
+import heroImage from "../assets/fotoFamilia.png";
 
 const HeroSection = () => {
   const badges = [
