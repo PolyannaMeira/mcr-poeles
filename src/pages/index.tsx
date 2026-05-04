@@ -14,7 +14,7 @@ const Index = () => {
     title: "M.C.R Chauffage - Poêles à Bois et Granulés Nord Pas-de-Calais | Installation & SAV",
     description: "Expert en poêles à bois et granulés dans le Nord et Pas-de-Calais. Installation, entretien, SAV. Devis gratuit. Rendement jusqu'à 83%. Économies garanties.",
     keywords: "poêle à bois, poêle à granulés, installation chauffage, Nord, Pas-de-Calais, entretien poêle, SAV, économies énergie, chauffage écologique",
-    canonicalUrl: "https://www.mcrchauf.fr/"
+    canonicalUrl: "https://www.mcr-poeles-pellets.com/"
   });
 
   // Structured Data for Business
@@ -27,13 +27,14 @@ const Index = () => {
     "email": "n.pinto.courtage@gmail.com",
     "areaServed": [
       {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": "50.6367",
-          "longitude": "2.9833"
-        },
-        "geoRadius": "50000"
+        "@type": "AdministrativeArea",
+        "name": "Nord",
+        "addressCountry": "FR"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "Pas-de-Calais",
+        "addressCountry": "FR"
       }
     ],
     "serviceType": ["Installation de poêles à bois", "Installation de poêles à granulés", "Entretien de poêles", "SAV chauffage", "Ramonage"],
@@ -48,11 +49,11 @@ const Index = () => {
       "latitude": "50.6367",
       "longitude": "2.9833"
     },
-    "url": "https://www.mcrchauf.fr",
+    "url": "https://www.mcr-poeles-pellets.com",
     "openingHours": "Mo-Fr 08:00-18:00, Sa 09:00-12:00",
     "potentialAction": {
       "@type": "ContactAction",
-      "target": "https://www.mcrchauf.fr/#contact"
+      "target": "https://www.mcr-poeles-pellets.com/#contact"
     }
   };
 
